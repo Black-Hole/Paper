@@ -1,11 +1,11 @@
-From f4386bf9889ec25011969dbd83bf9b4fafba8d6d Mon Sep 17 00:00:00 2001
+From 1b3fb61e7f14ef0d81148e547467a6ad7bcdcf88 Mon Sep 17 00:00:00 2001
 From: Alfie Cleveland <alfeh@me.com>
 Date: Fri, 25 Nov 2016 20:35:05 +0000
 Subject: [PATCH] Optimise NetworkManager
 
 
 diff --git a/src/main/java/net/minecraft/server/NetworkManager.java b/src/main/java/net/minecraft/server/NetworkManager.java
-index 58011bb2f..fb118e90b 100644
+index d583cced..89743d2b 100644
 --- a/src/main/java/net/minecraft/server/NetworkManager.java
 +++ b/src/main/java/net/minecraft/server/NetworkManager.java
 @@ -62,8 +62,8 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
@@ -76,7 +76,7 @@ index 58011bb2f..fb118e90b 100644
      public void a() {
 @@ -320,7 +289,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet<?>> {
                  } else if (this.i() != null) {
-                     this.i().a(new ChatComponentText("Disconnected"));
+                     this.i().a(new ChatMessage("multiplayer.disconnect.generic", new Object[0]));
                  }
 -                this.i.clear(); // Free up packet queue.
 +                 // this.i.clear(); // Free up packet queue. // Paper - remove unneeded packet queue
@@ -84,5 +84,5 @@ index 58011bb2f..fb118e90b 100644
  
          }
 -- 
-2.13.0
+2.13.0.windows.1
 

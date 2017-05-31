@@ -1,4 +1,4 @@
-From dae2dec377b431508465b4d4350453c14f8d3857 Mon Sep 17 00:00:00 2001
+From 12a230bdd4bd73492a3bfd71a382595a0e68690d Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Mon, 19 Sep 2016 23:16:39 -0400
 Subject: [PATCH] Auto Save Improvements
@@ -12,7 +12,7 @@ Re-introduce a cap per tick for auto save (Spigot disabled the vanilla cap) and 
 Adds incremental player auto saving too
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 621c585e7..da0984a35 100644
+index 621c585e..da0984a3 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -251,4 +251,9 @@ public class PaperConfig {
@@ -26,7 +26,7 @@ index 621c585e7..da0984a35 100644
 +    }
  }
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index cec9ea74c..39f8a0a2c 100644
+index cec9ea74..39f8a0a2 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -2,6 +2,7 @@ package com.destroystokyo.paper;
@@ -58,7 +58,7 @@ index cec9ea74c..39f8a0a2c 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Chunk.java b/src/main/java/net/minecraft/server/Chunk.java
-index a639ab2a8..099ce0b2d 100644
+index a639ab2a..099ce0b2 100644
 --- a/src/main/java/net/minecraft/server/Chunk.java
 +++ b/src/main/java/net/minecraft/server/Chunk.java
 @@ -962,11 +962,9 @@ public class Chunk {
@@ -76,7 +76,7 @@ index a639ab2a8..099ce0b2d 100644
  
      public Random a(long i) {
 diff --git a/src/main/java/net/minecraft/server/ChunkProviderServer.java b/src/main/java/net/minecraft/server/ChunkProviderServer.java
-index 9836c0c5a..39f0f5a17 100644
+index 9836c0c5..39f0f5a1 100644
 --- a/src/main/java/net/minecraft/server/ChunkProviderServer.java
 +++ b/src/main/java/net/minecraft/server/ChunkProviderServer.java
 @@ -1,5 +1,6 @@
@@ -96,19 +96,19 @@ index 9836c0c5a..39f0f5a17 100644
                  }
              }
 diff --git a/src/main/java/net/minecraft/server/EntityPlayer.java b/src/main/java/net/minecraft/server/EntityPlayer.java
-index fff461e3c..39311e1d1 100644
+index 9dd5d2f2..4b6ae63d 100644
 --- a/src/main/java/net/minecraft/server/EntityPlayer.java
 +++ b/src/main/java/net/minecraft/server/EntityPlayer.java
-@@ -33,6 +33,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
+@@ -32,6 +32,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
  
      private static final Logger bV = LogManager.getLogger();
-     public String locale = null; // PAIL: private -> public // Paper - default to null
+     public String locale = null; // CraftBukkit - lowercase // Paper - default to null
 +    public long lastSave = MinecraftServer.currentTick; // Paper
      public PlayerConnection playerConnection;
      public final MinecraftServer server;
      public final PlayerInteractManager playerInteractManager;
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 374ab7294..6f6cc49c0 100644
+index aab89ac4..0ee5a7b6 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -118,6 +118,7 @@ public abstract class MinecraftServer implements ICommandListener, Runnable, IAs
@@ -155,7 +155,7 @@ index 374ab7294..6f6cc49c0 100644
          this.methodProfiler.a("tallying");
          // Spigot start
 diff --git a/src/main/java/net/minecraft/server/PlayerList.java b/src/main/java/net/minecraft/server/PlayerList.java
-index a6576841b..f40bd1f46 100644
+index 1fc107b5..fb59fecc 100644
 --- a/src/main/java/net/minecraft/server/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/PlayerList.java
 @@ -339,6 +339,7 @@ public abstract class PlayerList {
@@ -192,7 +192,7 @@ index a6576841b..f40bd1f46 100644
      public void addWhitelist(GameProfile gameprofile) {
          this.whitelist.add(new WhiteListEntry(gameprofile));
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index 9f297f8de..a49e2302c 100644
+index 9f297f8d..a49e2302 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
 @@ -1002,8 +1002,9 @@ public class WorldServer extends World implements IAsyncTaskHandler {

@@ -1,14 +1,14 @@
-From ab9671b2d2930a60b6bf51241fdc3c34f66f0af8 Mon Sep 17 00:00:00 2001
+From 1087eabec0bef3923a451c9f7f39d6dc4d7ba375 Mon Sep 17 00:00:00 2001
 From: Brokkonaut <hannos17@gmx.de>
 Date: Sun, 4 Sep 2016 16:35:43 -0500
 Subject: [PATCH] Fix AIOOBE in inventory handling
 
 
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index c2e93bb45..73baf015b 100644
+index a99edb86..28a83ce3 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
-@@ -1830,7 +1830,7 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
+@@ -1837,7 +1837,7 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
                      case CLONE:
                          if (packetplayinwindowclick.c() == 2) {
                              click = ClickType.MIDDLE;

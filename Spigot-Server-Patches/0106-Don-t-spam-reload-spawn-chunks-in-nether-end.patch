@@ -1,14 +1,14 @@
-From f087f637f551c289f26ad3f4a625b78f1451f747 Mon Sep 17 00:00:00 2001
+From 963a63471e32004db1e62c43dee3bd33bd2d6bd9 Mon Sep 17 00:00:00 2001
 From: Aikar <aikar@aikar.co>
 Date: Tue, 5 Apr 2016 19:42:22 -0400
 Subject: [PATCH] Don't spam reload spawn chunks in nether/end
 
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 85cd83c35..364cfe885 100644
+index 65f84b41..958af412 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
-@@ -3199,6 +3199,7 @@ public abstract class World implements IBlockAccess {
+@@ -3203,6 +3203,7 @@ public abstract class World implements IBlockAccess {
          return this.P;
      }
  
@@ -17,7 +17,7 @@ index 85cd83c35..364cfe885 100644
          BlockPosition blockposition = this.getSpawn();
          int k = i * 16 + 8 - blockposition.getX();
 diff --git a/src/main/java/net/minecraft/server/WorldProvider.java b/src/main/java/net/minecraft/server/WorldProvider.java
-index d0265f960..35d8d1a6e 100644
+index d0265f96..35d8d1a6 100644
 --- a/src/main/java/net/minecraft/server/WorldProvider.java
 +++ b/src/main/java/net/minecraft/server/WorldProvider.java
 @@ -138,6 +138,6 @@ public abstract class WorldProvider {

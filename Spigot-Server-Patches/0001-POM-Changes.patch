@@ -1,11 +1,11 @@
-From f89b79a21ed04e7a9e81ecc8108f808f659927c0 Mon Sep 17 00:00:00 2001
+From f6704f7f0fa4268c99c3e90c302b024455aebb96 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Mon, 29 Feb 2016 20:40:33 -0600
 Subject: [PATCH] POM Changes
 
 
 diff --git a/pom.xml b/pom.xml
-index 31cb11194..167bc0ac2 100644
+index ed0ddbd8..fce7fe4d 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -1,12 +1,12 @@
@@ -17,7 +17,7 @@ index 31cb11194..167bc0ac2 100644
 +    <groupId>com.destroystokyo.paper</groupId>
 +    <artifactId>paper</artifactId>
      <packaging>jar</packaging>
-     <version>1.12-pre5-SNAPSHOT</version>
+     <version>1.12-pre6-SNAPSHOT</version>
 -    <name>Spigot</name>
 -    <url>http://www.spigotmc.org</url>
 +    <name>Paper</name>
@@ -146,7 +146,7 @@ index 31cb11194..167bc0ac2 100644
              <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
 diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
-index 93046379d..674096cab 100644
+index 93046379..674096ca 100644
 --- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 +++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
 @@ -11,7 +11,7 @@ public final class Versioning {

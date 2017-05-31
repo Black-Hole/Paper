@@ -1,11 +1,11 @@
-From 60d656282916a149f91cc19d99609e62805faf32 Mon Sep 17 00:00:00 2001
+From 3970e708fe3b13559783d98eca55d4b59b674728 Mon Sep 17 00:00:00 2001
 From: Zach Brown <zach.brown@destroystokyo.com>
 Date: Wed, 6 Apr 2016 01:04:23 -0500
 Subject: [PATCH] Option to use vanilla per-world scoreboard coloring on names
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
-index 3a942c763..3bd29650c 100644
+index 3a942c76..3bd29650 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
 @@ -290,4 +290,9 @@ public class PaperWorldConfig {
@@ -19,7 +19,7 @@ index 3a942c763..3bd29650c 100644
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/Entity.java b/src/main/java/net/minecraft/server/Entity.java
-index 5428220a0..3177c17c4 100644
+index 9a47d00c..f6d04c3d 100644
 --- a/src/main/java/net/minecraft/server/Entity.java
 +++ b/src/main/java/net/minecraft/server/Entity.java
 @@ -2073,6 +2073,7 @@ public abstract class Entity implements ICommandListener {
@@ -31,10 +31,10 @@ index 5428220a0..3177c17c4 100644
      public ScoreboardTeamBase aW() {
          if (!this.world.paperConfig.nonPlayerEntitiesOnScoreboards && !(this instanceof EntityHuman)) { return null; } // Paper
 diff --git a/src/main/java/net/minecraft/server/PlayerConnection.java b/src/main/java/net/minecraft/server/PlayerConnection.java
-index 81f8e0fd0..b5284cecd 100644
+index e20a166b..76784a3a 100644
 --- a/src/main/java/net/minecraft/server/PlayerConnection.java
 +++ b/src/main/java/net/minecraft/server/PlayerConnection.java
-@@ -1371,7 +1371,14 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
+@@ -1378,7 +1378,14 @@ public class PlayerConnection implements PacketListenerPlayIn, ITickable {
                      return;
                  }
  
